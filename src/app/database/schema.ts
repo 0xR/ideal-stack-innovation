@@ -8,8 +8,6 @@ export const itemsTable = pgTable(
     name: varchar("name", { length: 256 }),
     done: boolean("done"),
   },
-  (items) => ({
-  })
 );
 
 export type Item = typeof itemsTable.$inferSelect;
@@ -18,6 +16,8 @@ export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   name: text('name'),
 });
+
+export type User = typeof users.$inferSelect;
 
 export const usersRelations = relations(users, ({ many }) => ({
   usersToGroups: many(usersToGroups),
@@ -28,6 +28,8 @@ export const groups = pgTable('groups', {
   name: text('name'),
 });
 
+export type Group = typeof groups.$inferSelect;
+
 export const groupsRelations = relations(groups, ({ many }) => ({
   usersToGroups: many(usersToGroups),
 }));
@@ -36,7 +38,7 @@ export const usersToGroups = pgTable('users_to_groups', {
     userId: integer('user_id').notNull().references(() => users.id),
     groupId: integer('group_id').notNull().references(() => groups.id),
   }, (t) => ({
-    pk: primaryKey(t.userId, t.groupId),
+    pk: primaryKey({ columns: [t.userId, t.groupId] }),
   }),
 );
 
