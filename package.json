@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.450.0",
     "@neondatabase/serverless": "^0.6.0",
     "drizzle-orm": "^0.29.0",
     "next": "14.0.2",
@@ -20,15 +21,15 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "aws-cdk-lib": "2.101.1",
+    "constructs": "10.2.69",
     "dotenv": "^16.3.1",
     "drizzle-kit": "^0.20.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.2",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5",
     "sst": "^2.36.1",
-    "aws-cdk-lib": "2.101.1",
-    "constructs": "10.2.69"
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }

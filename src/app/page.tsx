@@ -1,5 +1,6 @@
 import ClientComponent from "@/app/ClientComponent";
 import { getItems } from "./actions";
+import { UploadFile } from "./UploadFile";
 
 export default async function Home() {
   const items = await getItems();
@@ -19,6 +20,8 @@ export default async function Home() {
           );
         })}
       </ul>
+
+      <UploadFile />
     </main>
   );
 }
