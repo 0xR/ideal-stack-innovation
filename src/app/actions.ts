@@ -45,3 +45,14 @@ export async function updateItemDone(id: number, done: boolean) {
 
   console.log("Updated item", item);
 }
+
+export async function deleteItem(id: number) {
+  const item = await db
+    .delete(itemsTable)
+    .where(eq(itemsTable.id, id))
+    .returning();
+
+  revalidateTag("items");
+
+  console.log("Deleted item", item);
+}

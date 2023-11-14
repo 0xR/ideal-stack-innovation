@@ -1,5 +1,5 @@
 import ClientComponent from "@/app/ClientComponent";
-import { getItems, updateItemDone } from "./actions";
+import { deleteItem, getItems, updateItemDone } from "./actions";
 import { Item } from "./Item";
 
 export default async function Home() {
@@ -12,7 +12,12 @@ export default async function Home() {
       <h2 className="text-xl font-semibold my-4">To do items</h2>
       <ul>
         {items.map((item) => (
-          <Item key={item.id} item={item} onChange={updateItemDone} />
+          <Item
+            key={item.id}
+            item={item}
+            onChange={updateItemDone}
+            onDelete={deleteItem}
+          />
         ))}
       </ul>
     </main>
