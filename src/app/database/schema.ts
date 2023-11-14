@@ -14,7 +14,6 @@ export const itemsTable = pgTable(
     done: boolean("done"),
   },
   (items) => ({
-    nameIndex: uniqueIndex("name_idx").on(items.name),
   })
 );
 
