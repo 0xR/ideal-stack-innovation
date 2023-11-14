@@ -21,6 +21,7 @@ export type User = typeof users.$inferSelect;
 
 export const usersRelations = relations(users, ({ many }) => ({
   usersToGroups: many(usersToGroups),
+  posts: many(posts),
 }));
 
 export const groups = pgTable('groups', {
@@ -51,4 +52,32 @@ export const usersToGroupsRelations = relations(usersToGroups, ({ one }) => ({
     fields: [usersToGroups.userId],
     references: [users.id],
   }),
+}));
+
+export const comments = pgTable('comments', {
+  id: serial('id').primaryKey(),
+  text: text('text'),
+  authorId: integer('author_id').references(() => users.id),
+  postId: integer('post_id').references(() => posts.id),
+});
+
+export const commentsRelations = relations(comments, ({ one }) => ({
+  post: one(posts, {
+    fields: [comments.postId],
+    references: [posts.id],
+  }),
+}));
+
+export const posts = pgTable('posts', {
+  id: serial('id').primaryKey(),
+  content: text('content'),
+  authorId: integer('author_id').references(() => users.id),
+});
+
+export const postsRelations = relations(posts, ({ one, many }) => ({
+  author: one(users, {
+    fields: [posts.authorId],
+    references: [users.id],
+  }),
+  comments: many(comments)
 }));

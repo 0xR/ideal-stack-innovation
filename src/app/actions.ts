@@ -58,3 +58,16 @@ export async function deleteItem(id: number) {
 
   console.log("Deleted item", item);
 }
+
+
+export async function getGroupsWithUsers() {
+  const posts = await db.query.users.findMany({
+    with: {
+      usersToGroups: true
+      
+    },
+  });
+  console.log(posts[0].usersToGroups[0].userId)
+  
+  return posts;
+}

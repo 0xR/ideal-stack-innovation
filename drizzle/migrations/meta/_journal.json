@@ -22,6 +22,20 @@
       "when": 1699971483173,
       "tag": "0002_chunky_silver_sable",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1699972273872,
+      "tag": "0003_wooden_ares",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1699972363823,
+      "tag": "0004_clever_sphinx",
+      "breakpoints": true
     }
   ]
 }
