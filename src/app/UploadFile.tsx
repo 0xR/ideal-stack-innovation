@@ -14,10 +14,10 @@ export const UploadFile = async () => {
       Key: crypto.randomUUID(),
       // @ts-ignore
       Bucket: Bucket.public.bucketName,
-      Body: file,
+      Body: Buffer.from(await file.arrayBuffer()),
     });
 
-    s3.send(command);
+    await s3.send(command);
   }
 
   return (
