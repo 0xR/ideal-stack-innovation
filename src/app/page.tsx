@@ -2,6 +2,7 @@ import ClientComponent from "@/app/ClientComponent";
 import { deleteItem, getItems, updateItemDone } from "./actions";
 import { Item } from "./Item";
 import { UploadFile } from "./UploadFile";
+import { Gallery } from "./Gallery";
 
 export default async function Home() {
   const items = await getItems();
@@ -23,6 +24,7 @@ export default async function Home() {
       </ul>
 
       <UploadFile />
+      <Gallery />
     </main>
   );
 }

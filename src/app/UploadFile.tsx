@@ -1,4 +1,5 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { revalidateTag } from "next/cache";
 import { Bucket } from "sst/node/bucket";
 
 const s3 = new S3Client();
@@ -18,6 +19,7 @@ export const UploadFile = async () => {
     });
 
     await s3.send(command);
+    revalidateTag("images");
   }
 
   return (
