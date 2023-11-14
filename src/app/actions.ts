@@ -1,4 +1,6 @@
 "use server";
+import "./db";
+
 import { assertIsNonBlankString } from "@/app/assert-type";
 import { revalidatePath } from "next/cache";
 
