@@ -1,5 +1,6 @@
 import ClientComponent from "@/app/ClientComponent";
-import { getItems } from "./actions";
+import { getItems, updateItemDone } from "./actions";
+import { Item } from "./Item";
 
 export default async function Home() {
   const items = await getItems();
@@ -10,14 +11,9 @@ export default async function Home() {
 
       <h2 className="text-xl font-semibold my-4">To do items</h2>
       <ul>
-        {items.map((item) => {
-          return (
-            <li key={item.id} className="flex gap-2">
-              <input type="checkbox" defaultChecked={!!item.done} readOnly />{" "}
-              {item.name}
-            </li>
-          );
-        })}
+        {items.map((item) => (
+          <Item key={item.id} item={item} onChange={updateItemDone} />
+        ))}
       </ul>
     </main>
   );
