@@ -5,10 +5,11 @@ import { revalidateTag } from "next/cache";
 import { db } from "@/app/database/db";
 import { itemsTable } from "@/app/database/schema";
 import { unstable_cache as cache } from "next/cache";
+import { eq } from "drizzle-orm";
 
 export const getItems = cache(
   () => {
-    return db.select().from(itemsTable);
+    return db.select().from(itemsTable).orderBy(itemsTable.name);
   },
   ["items"],
   {
@@ -19,8 +20,7 @@ export const getItems = cache(
 export async function myAction(formData: FormData) {
   const item = formData.get("item");
   assertIsNonBlankString(item);
-  revalidateTag("items");
-  console.log("SERVER!!!!", item);
+
   const itemRow = await db
     .insert(itemsTable)
     .values({
@@ -28,5 +28,31 @@ export async function myAction(formData: FormData) {
       name: item,
     })
     .returning();
-  console.log("itemRow", itemRow);
+
+  revalidateTag("items");
+
+  console.log("Inserted item", itemRow);
+}
+
+export async function updateItemDone(id: number, done: boolean) {
+  const item = await db
+    .update(itemsTable)
+    .set({ done })
+    .where(eq(itemsTable.id, id))
+    .returning();
+
+  revalidateTag("items");
+
+  console.log("Updated item", item);
+}
+
+export async function deleteItem(id: number) {
+  const item = await db
+    .delete(itemsTable)
+    .where(eq(itemsTable.id, id))
+    .returning();
+
+  revalidateTag("items");
+
+  console.log("Deleted item", item);
 }

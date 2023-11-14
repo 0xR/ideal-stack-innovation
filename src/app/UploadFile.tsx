@@ -12,6 +12,7 @@ export const UploadFile = async () => {
     const command = new PutObjectCommand({
       ACL: "public-read",
       Key: crypto.randomUUID(),
+      // @ts-ignore
       Bucket: Bucket.public.bucketName,
       Body: file,
     });
