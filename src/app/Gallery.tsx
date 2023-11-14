@@ -7,15 +7,16 @@ const s3 = new S3Client();
 
 export const getImages = cache(
   async () => {
+    // @ts-ignore
+    const bucketName = Bucket.public.bucketName;
     const command = new ListObjectsCommand({
-      // @ts-ignore
-      Bucket: Bucket.public.bucketName,
+      Bucket: bucketName,
     });
 
     const response = await s3.send(command);
     const images = response.Contents?.map((item) => item.Key);
 
-    return images || [];
+    return { images: images || [], bucketName };
   },
   ["images"],
   {
@@ -24,15 +25,17 @@ export const getImages = cache(
 );
 
 export const Gallery = async () => {
-  const images = await getImages();
+  const { images, bucketName } = await getImages();
 
   return (
     <div className="grid grid-cols-3 gap-4 p-4">
       {images.map((imageKey) => (
         <Image
           key={imageKey}
-          src={`https://your-s3-bucket-url/${imageKey}`}
+          src={`${bucketName}.s3.amazonaws.com/${imageKey}`}
           alt={imageKey || "lame image"}
+          width={100}
+          height={100}
           className="object-cover w-full h-32 rounded-md shadow-md"
         />
       ))}
