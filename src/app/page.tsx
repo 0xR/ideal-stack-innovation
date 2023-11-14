@@ -13,7 +13,8 @@ export default async function Home() {
         {items.map((item) => {
           return (
             <li key={item.id} className="flex gap-2">
-              <input type="checkbox" checked={!!item.done} /> {item.name}
+              <input type="checkbox" defaultChecked={!!item.done} readOnly />{" "}
+              {item.name}
             </li>
           );
         })}
