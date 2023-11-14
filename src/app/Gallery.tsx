@@ -1,5 +1,4 @@
 import { ListObjectsCommand, S3Client } from "@aws-sdk/client-s3";
-import { Bucket } from "sst/node/bucket";
 import { unstable_cache as cache } from "next/cache";
 import Image from "next/image";
 
@@ -8,15 +7,18 @@ const s3 = new S3Client();
 export const getImages = cache(
   async () => {
     // @ts-ignore
-    const bucketName = Bucket.public.bucketName;
-    const command = new ListObjectsCommand({
-      Bucket: bucketName,
-    });
+    if (process.env.SST_Bucket_bucketName_public) {
+      const bucketName = process.env.SST_Bucket_bucketName_public;
+      const command = new ListObjectsCommand({
+        Bucket: bucketName,
+      });
 
-    const response = await s3.send(command);
-    const images = response.Contents?.map((item) => item.Key);
+      const response = await s3.send(command);
+      const images = response.Contents?.map((item) => item.Key);
 
-    return { images: images || [], bucketName };
+      return { images: images || [], bucketName };
+    }
+    return { images: [] };
   },
   ["images"],
   {
