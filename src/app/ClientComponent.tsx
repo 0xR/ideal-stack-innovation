@@ -1,10 +1,10 @@
 "use client";
 
-import { myAction } from "./actions";
+import { submitItem } from "./actions";
 
 export default function ClientComponent() {
   return (
-    <form action={myAction}>
+    <form action={submitItem}>
       <h1 className="text-2xl font-semibold mb-4">Add to do item</h1>
       <div className="flex gap-2">
         <input

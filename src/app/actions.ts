@@ -17,7 +17,7 @@ export const getItems = cache(
   }
 );
 
-export async function myAction(formData: FormData) {
+export async function submitItem(formData: FormData) {
   const item = formData.get("item");
   assertIsNonBlankString(item);
 
