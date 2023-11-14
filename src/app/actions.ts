@@ -1,7 +1,7 @@
 "use server";
 
 import { assertIsNonBlankString } from "@/app/assert-type";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { db } from "@/app/database/db";
 import { itemsTable } from "@/app/database/schema";
 import { unstable_cache as cache } from "next/cache";
@@ -30,6 +30,7 @@ export async function submitItem(formData: FormData) {
     .returning();
 
   revalidateTag("items");
+  revalidatePath("/");
 
   console.log("Inserted item", itemRow);
 }
@@ -42,6 +43,7 @@ export async function updateItemDone(id: number, done: boolean) {
     .returning();
 
   revalidateTag("items");
+  revalidatePath("/");
 
   console.log("Updated item", item);
 }
