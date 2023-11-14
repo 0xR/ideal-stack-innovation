@@ -5,11 +5,17 @@ export default async function Home() {
   const items = await getItems();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="p-24">
       <ClientComponent />
+
+      <h2 className="text-xl font-semibold my-4">To do items</h2>
       <ul>
         {items.map((item) => {
-          return <li key={item.id}>{item.name}</li>;
+          return (
+            <li key={item.id} className="flex gap-2">
+              <input type="checkbox" checked={!!item.done} /> {item.name}
+            </li>
+          );
         })}
       </ul>
     </main>
