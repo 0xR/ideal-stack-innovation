@@ -32,7 +32,7 @@ export const Gallery = async () => {
       {images.map((imageKey) => (
         <Image
           key={imageKey}
-          src={`${bucketName}.s3.amazonaws.com/${imageKey}`}
+          src={`https://${bucketName}.s3.amazonaws.com/${imageKey}`}
           alt={imageKey || "lame image"}
           width={100}
           height={100}
