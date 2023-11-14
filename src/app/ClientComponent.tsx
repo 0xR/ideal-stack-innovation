@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { myAction } from './actions'
+import { myAction } from "./actions";
 
 export default function ClientComponent() {
   return (
@@ -8,5 +8,5 @@ export default function ClientComponent() {
       <input name="item"></input>
       <button type="submit">Add to Cart</button>
     </form>
-  )
+  );
 }

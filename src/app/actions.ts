@@ -1,9 +1,17 @@
-'use server'
+"use server";
+import { assertIsNonBlankString } from "@/app/assert-type";
+import { revalidatePath } from "next/cache";
 
-import { assertIsNonBlankString } from '@/app/assert-type';
+const items: string[] = [];
+
+export async function getItems() {
+  return items;
+}
 
 export async function myAction(formData: FormData) {
-  const item  = formData.get('item');
+  const item = formData.get("item");
   assertIsNonBlankString(item);
-  console.log('SERVER!!!!', item);
+  items.push(item);
+  revalidatePath("/");
+  console.log("SERVER!!!!", item);
 }
