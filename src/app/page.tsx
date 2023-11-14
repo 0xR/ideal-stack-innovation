@@ -9,7 +9,7 @@ export default async function Home() {
       <ClientComponent />
       <ul>
         {items.map((item) => {
-          return <li key={item}>{item}</li>;
+          return <li key={item.id}>{item.name}</li>;
         })}
       </ul>
     </main>

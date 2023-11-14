@@ -5,16 +5,14 @@ import {revalidatePath} from "next/cache";
 import {db} from "@/app/database/db";
 import {itemsTable} from "@/app/database/schema";
 
-const items: string[] = [];
 
 export async function getItems() {
-    return items;
+    return db.select().from(itemsTable);
 }
 
 export async function myAction(formData: FormData) {
     const item = formData.get("item");
     assertIsNonBlankString(item);
-    items.push(item);
     revalidatePath("/");
     console.log("SERVER!!!!", item);
     const itemRow = await db.insert(itemsTable).values({
